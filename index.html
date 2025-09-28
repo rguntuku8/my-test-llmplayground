@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Playground</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Control Bar -->
+            <div class="top-control-bar">
+                <div class="control-icons">
+                    <!-- Settings Panel -->
+                    <div class="settings-panel-header" id="settingsPanel">
+                        <button class="settings-toggle" id="settingsToggle">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        
+                        <div class="settings-dropdown" id="settingsContent">
+                            <div class="settings-header">
+                                <h3>Model Parameters</h3>
+                                <div class="settings-actions">
+                                    <button class="reset-settings" id="resetSettings" title="Reset to defaults">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Model Selection -->
+                            <div class="setting-card full-width">
+                                <div class="setting-header">
+                                    <label for="modelSelect">Model Selection</label>
+                                </div>
+                                <div class="setting-control">
+                                    <div class="model-selector-settings">
+                                        <select id="modelSelect">
+                                    <!-- OpenAI Models -->
+                                    <option value="gpt-4o">GPT-4o</option>
+                                    <option value="gpt-4-turbo">GPT-4 Turbo</option>
+                                    <option value="gpt-4">GPT-4</option>
+                                    <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                    <!-- Anthropic Claude Models -->
+                                    <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
+                                    <option value="claude-3-5-haiku">Claude 3.5 Haiku</option>
+                                    <option value="claude-3-opus">Claude 3 Opus</option>
+                                    <option value="claude-3-haiku">Claude 3 Haiku</option>
+                                    <!-- Google Gemini Models -->
+                                    <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+                                    <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                                    <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash Lite</option>
+                                    <option value="gemini-1.0-ultra">Gemini 1.0 Ultra</option>
+                                    <option value="gemini-pro">Gemini Pro</option>
+                                    <!-- xAI Grok Models -->
+                                    <option value="grok-4-fast">Grok 4 Fast</option>
+                                    <option value="grok-4">Grok 4</option>
+                                    <option value="grok-2">Grok-2</option>
+                                    <option value="grok-2-mini">Grok-2 Mini</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="settings-grid">
+                                <div class="setting-card">
+                                    <div class="setting-header">
+                                        <label for="temperature">Temperature</label>
+                                        <span class="setting-value" id="temperatureDisplay">0.7</span>
+                                    </div>
+                                    <div class="setting-control">
+                                        <input type="range" id="temperature" min="0" max="2" step="0.1" value="0.7">
+                                        <div class="range-labels">
+                                            <span>Conservative</span>
+                                            <span>Creative</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="setting-card">
+                                    <div class="setting-header">
+                                        <label for="maxTokens">Max Tokens</label>
+                                        <span class="setting-value" id="maxTokensDisplay">2048</span>
+                                    </div>
+                                    <div class="setting-control">
+                                        <input type="range" id="maxTokens" min="256" max="4096" step="256" value="2048">
+                                        <div class="range-labels">
+                                            <span>256</span>
+                                            <span>4096</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="setting-card">
+                                    <div class="setting-header">
+                                        <label for="presencePenalty">Presence Penalty</label>
+                                        <span class="setting-value" id="presencePenaltyDisplay">0.0</span>
+                                    </div>
+                                    <div class="setting-control">
+                                        <input type="range" id="presencePenalty" min="-2" max="2" step="0.1" value="0">
+                                        <div class="range-labels">
+                                            <span>Repetitive</span>
+                                            <span>Diverse</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="setting-card">
+                                    <div class="setting-header">
+                                        <label for="frequencyPenalty">Frequency Penalty</label>
+                                        <span class="setting-value" id="frequencyPenaltyDisplay">0.0</span>
+                                    </div>
+                                    <div class="setting-control">
+                                        <input type="range" id="frequencyPenalty" min="-2" max="2" step="0.1" value="0">
+                                        <div class="range-labels">
+                                            <span>Focused</span>
+                                            <span>Varied</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="setting-card">
+                                    <div class="setting-header">
+                                        <label for="topP">Top P</label>
+                                        <span class="setting-value" id="topPDisplay">1.0</span>
+                                    </div>
+                                    <div class="setting-control">
+                                        <input type="range" id="topP" min="0" max="1" step="0.05" value="1">
+                                        <div class="range-labels">
+                                            <span>Focused</span>
+                                            <span>Diverse</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="setting-card">
+                                    <div class="setting-header">
+                                        <label for="seed">Seed</label>
+                                        <button class="randomize-seed" id="randomizeSeed" title="Randomize seed">
+                                            <i class="fas fa-dice"></i>
+                                        </button>
+                                    </div>
+                                    <div class="setting-control">
+                                        <input type="number" id="seed" placeholder="Random" min="0" max="2147483647">
+                                    </div>
+                                </div>
+                                
+                                <div class="setting-card full-width">
+                                    <div class="setting-header">
+                                        <label for="stopSequence">Stop Sequences</label>
+                                        <button class="clear-stop" id="clearStop" title="Clear stop sequences">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <div class="setting-control">
+                                        <textarea id="stopSequence" placeholder="Enter stop sequences, one per line..." rows="2"></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="setting-card full-width">
+                                    <div class="setting-header">
+                                        <label for="systemPrompt">System Prompt</label>
+                                        <button class="clear-prompt" id="clearPrompt" title="Clear prompt">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <div class="setting-control">
+                                        <textarea id="systemPrompt" placeholder="Define the AI's behavior and personality..." rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="fullscreen-btn">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Header -->
+            <div class="header">
+            </div>
+            
+            <!-- Chat Area -->
+            <div class="chat-container initial-state">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="welcome-message">
+                        <h1>Where should we begin?</h1>
+                    </div>
+                </div>
+                
+                <!-- Input Area -->
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <button class="attach-btn">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <textarea 
+                            id="messageInput" 
+                            placeholder="Ask anything" 
+                            rows="1"
+                        ></textarea>
+                        <button class="voice-btn">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button class="send-btn" id="sendBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
